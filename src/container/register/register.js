@@ -3,8 +3,10 @@ import { connect } from 'react-redux'
 import Logo from '../../component/logo/logo'
 import { List, InputItem, WingBlank, WhiteSpace, Button, Radio } from 'antd-mobile'
 import { register } from '../../redux/user.redux'
+import {withRouter} from 'react-router-dom'
 const RadioItem = Radio.RadioItem;
 
+@withRouter
 @connect(
   state => state.user,
   {register}
@@ -18,6 +20,14 @@ class Register extends React.Component {
       pwd: '',
       repeatPwd: ''
     }
+  }
+
+  // 也可以用redirect标签……好像还是redirect标签快一点……
+  componentWillReceiveProps (nextProps) {
+    console.log(nextProps)
+    let replace = nextProps.history.replace
+    let redirectTo = nextProps.redirectTo
+    redirectTo && replace(redirectTo)
   }
 
   handleChange = (key, val) => {
@@ -34,6 +44,7 @@ class Register extends React.Component {
   render () {
     return (
       <div>
+        {/*{this.props.redirectTo ? <Redirect to={this.props.redirectTo}/> : null}*/}
         <Logo/>
         <div>register</div>
         <List>

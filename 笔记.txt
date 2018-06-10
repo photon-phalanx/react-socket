@@ -1,0 +1,1 @@
+1.只有路由组件有this.props.history,其他组件如果需要使用，需要用react-router提供的withRouter

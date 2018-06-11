@@ -72,9 +72,14 @@ router.post('/update', async (ctx, next) => {
 })
 
 router.get('/list', async (ctx, next) => {
-  let data = await User.find({})
-  // let data = await User.remove({})
-  ctx.body = data
+  const {type} = ctx.query
+  try {
+    let data = await User.find({type})
+    // let data = await User.remove({})
+    ctx.body = {code: 0, data}
+  } catch (e) {
+    ctx.body = {code: 1, msg: '后端错误'}
+  }
   next()
 })
 

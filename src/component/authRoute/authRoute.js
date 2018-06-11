@@ -12,7 +12,6 @@ import axios from 'axios/index'
 class AuthRoute extends React.Component {
 
   componentDidMount () {
-    window.reactHistory = this.props.history
     const publicList = ['/login', '/register']
     const pathName = this.props.location.pathname
     if (publicList.includes(pathName)) return null

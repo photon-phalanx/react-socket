@@ -5,7 +5,6 @@ const utils = require('utility')
 const _filter = {'pwd': 0, '__v': 0}
 
 router.get('/info', async (ctx, next) => {
-  console.log(ctx.cookies.get('userId'))
   let userId = ctx.cookies.get('userId')
   if (!userId) {
     ctx.body = {code: 1}
@@ -55,6 +54,23 @@ router.post('/login', async (ctx, next) => {
   }
 })
 
+router.post('/update', async (ctx, next) => {
+  let userId = ctx.cookies.get('userId')
+  if (!userId) {
+    ctx.body = {code: 1}
+    return
+  }
+  const body = ctx.request.body
+  try {
+    let result = await User.findByIdAndUpdate({_id: userId}, body)
+    console.log(result)
+    const data = {userId, ...result._doc, ...body}
+    ctx.body = {code: 0, data}
+  } catch (e) {
+    ctx.body = {code: 1, msg: '后端错误'}
+  }
+})
+
 router.get('/list', async (ctx, next) => {
   let data = await User.find({})
   // let data = await User.remove({})
@@ -62,7 +78,7 @@ router.get('/list', async (ctx, next) => {
   next()
 })
 
-function md5Pwd(pwd) {
+function md5Pwd (pwd) {
   const salt = 'photon_phalanx_salt'
   return utils.md5(utils.md5(pwd + salt))
 }

@@ -1,2 +1,5 @@
 1.只有路由组件有this.props.history,其他组件如果需要使用，需要用react-router提供的withRouter
 2.后端密码至少md5双层加盐加密
+3.去掉对象中的pwd
+let {pwd, ...data} = obj
+data里就没有pwd字段了

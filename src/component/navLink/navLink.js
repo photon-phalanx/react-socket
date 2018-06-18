@@ -1,5 +1,5 @@
 import React from 'react'
-import { TabBar, InputItem, WingBlank, WhiteSpace, Button, NavBar } from 'antd-mobile'
+import { TabBar } from 'antd-mobile'
 import PropTypes from 'prop-types'
 import {withRouter} from 'react-router-dom'
 

@@ -1,20 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { List, InputItem, WingBlank, WhiteSpace, Button, NavBar } from 'antd-mobile'
+import { NavBar } from 'antd-mobile'
 import NavLink from '../navLink/navLink'
 import { Route, Switch } from 'react-router-dom'
 import Boss from '../../container/boss/boss'
-
-function Genius () {
-  return <h1>GENIUS</h1>
-}
+import Genius from '../../container/genius/genius'
+import User from '../../container/user/user'
 
 function Msg () {
   return <h1>img</h1>
-}
-
-function User () {
-  return <h1>user</h1>
 }
 
 @connect(

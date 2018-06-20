@@ -31,7 +31,7 @@ router.post('/register', async (ctx, next) => {
     try {
       const userModel = new User({user, pwd: md5Pwd(pwd), type})
       let result = await userModel.save()
-      ctx.cookies.set('userId', result._id)
+      ctx.cookies.set('userId', result._id, {httpOnly: false})
       ctx.body = {code: 0, data: {user: result.user, type: result.type, _id: result._id}}
     } catch (e) {
       ctx.body = {code: 1, msg: '后端错误'}
@@ -46,7 +46,7 @@ router.post('/login', async (ctx, next) => {
     if (!result) {
       ctx.body = {code: 1, msg: '用户不存在或者密码错误'}
     } else {
-      ctx.cookies.set('userId', result._id)
+      ctx.cookies.set('userId', result._id, {httpOnly: false})
       ctx.body = {code: 0, data: result}
     }
   } catch (e) {

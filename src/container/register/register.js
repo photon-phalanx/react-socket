@@ -3,23 +3,20 @@ import { connect } from 'react-redux'
 import Logo from '../../component/logo/logo'
 import { List, InputItem, WhiteSpace, Button, Radio } from 'antd-mobile'
 import { register } from '../../redux/user.redux'
-import {withRouter} from 'react-router-dom'
-const RadioItem = Radio.RadioItem;
+import { withRouter } from 'react-router-dom'
+import selfForm from '../../component/form/selfForm'
+
+const RadioItem = Radio.RadioItem
 
 @withRouter
 @connect(
   state => state.user,
   {register}
 )
+@selfForm
 class Register extends React.Component {
   constructor (props) {
     super(props)
-    this.state = {
-      type: 'genius',
-      user: '',
-      pwd: '',
-      repeatPwd: ''
-    }
   }
 
   // 也可以用redirect标签……好像还是redirect标签快一点……
@@ -30,15 +27,12 @@ class Register extends React.Component {
     redirectTo && replace(redirectTo)
   }
 
-  handleChange = (key, val) => {
-    this.setState({
-      [key]: val
-    })
+  componentDidMount () {
+    this.props.handleChange('type', 'genius')
   }
 
   handleRegister = () => {
-    this.props.register(this.state)
-    console.log(this.state)
+    this.props.register(this.props.state)
   }
 
   render () {
@@ -49,19 +43,19 @@ class Register extends React.Component {
         <div>register</div>
         <List>
           {this.props.msg ? <div className='error-msg'>{this.props.msg}</div> : null}
-          <InputItem onChange={v => this.handleChange('user', v)}>用户名</InputItem>
-          <WhiteSpace />
-          <InputItem type='password' onChange={v => this.handleChange('pwd', v)}>密码</InputItem>
-          <WhiteSpace />
-          <InputItem type='password' onChange={v => this.handleChange('repeatPwd', v)}>确认密码</InputItem>
-          <WhiteSpace />
-          <RadioItem onChange={v => this.handleChange('type', 'genius')} checked={this.state.type === 'genius'}>
+          <InputItem onChange={v => this.props.handleChange('user', v)}>用户名</InputItem>
+          <WhiteSpace/>
+          <InputItem type='password' onChange={v => this.props.handleChange('pwd', v)}>密码</InputItem>
+          <WhiteSpace/>
+          <InputItem type='password' onChange={v => this.props.handleChange('repeatPwd', v)}>确认密码</InputItem>
+          <WhiteSpace/>
+          <RadioItem onChange={v => this.props.handleChange('type', 'genius')} checked={this.props.state.type === 'genius'}>
             牛人
           </RadioItem>
-          <RadioItem onChange={v => this.handleChange('type', 'boss')} checked={this.state.type === 'boss'}>
+          <RadioItem onChange={v => this.props.handleChange('type', 'boss')} checked={this.props.state.type === 'boss'}>
             boss
           </RadioItem>
-          <WhiteSpace />
+          <WhiteSpace/>
           <Button onClick={v => this.handleRegister()} type='primary'>注册</Button>
         </List>
       </div>

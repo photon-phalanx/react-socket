@@ -10,7 +10,7 @@ class UserCard extends React.Component {
     userList: PropTypes.array.isRequired
   }
 
-  handleClick = (item) => {
+  handleClick = (item, event) => {
     this.props.history.push(`/chat/${item.user}`)
   }
 
@@ -21,7 +21,7 @@ class UserCard extends React.Component {
           item.avatar ?
             <Card
               key={item._id}
-              onClick={this.handleClick(item)}>
+              onClick={this.handleClick.bind(this, item)}>
               <Card.Header
                 title={item.user}
                 thumb={require(`../../component/img/${item.avatar}.png`)}

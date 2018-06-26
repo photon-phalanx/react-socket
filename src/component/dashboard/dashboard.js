@@ -56,10 +56,10 @@ class Dashboard extends React.Component {
         component: User
       }
     ]
-
+    let selected = navList.find((item) => item.path === pathname)
     return (
       <div>
-        <NavBar className='fixed-header' mode='dard'>{navList.find((item) => item.path === pathname).title}</NavBar>
+        <NavBar className='fixed-header' mode='dard'>{selected && selected.title}</NavBar>
         <div style={{marginTop: 45}}>
           <Switch>
             {navList.map((item) => {

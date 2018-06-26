@@ -4,15 +4,15 @@ import React from 'react'
 // import { login } from '../../redux/user.redux'
 
 class Chat extends React.Component {
-
-  register = () => {
-    this.props.history.push('/register')
-  }
-
-
-  handleLogin = () => {
-    this.props.login(this.props.state)
-  }
+  //
+  // register = () => {
+  //   this.props.history.push('/register')
+  // }
+  //
+  //
+  // handleLogin = () => {
+  //   this.props.login(this.props.state)
+  // }
 
   render () {
     return (

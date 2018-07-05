@@ -1,6 +1,7 @@
 const router = require('koa-router')()
 const model = require('./model')
 const User = model.getModel('user')
+const Chat = model.getModel('chat')
 const utils = require('utility')
 const _filter = {'pwd': 0, '__v': 0}
 
@@ -72,6 +73,22 @@ router.post('/update', async (ctx, next) => {
 })
 
 router.get('/list', async (ctx, next) => {
+  const {type} = ctx.query
+  try {
+    let data = await User.find({type})
+    // let data = await User.remove({})
+    ctx.body = {code: 0, data}
+  } catch (e) {
+    ctx.body = {code: 1, msg: '后端错误'}
+  }
+  next()
+})
+
+router.get('/getMsgList', async (ctx, next) => {
+  const user = ctx.cookies.get('userId')
+  Chat.find({'$or': [{from: user, to: user}]},function (err, doc) {
+    if (!err) return ctx.body = {code: 0, msgs: doc}
+  })
   const {type} = ctx.query
   try {
     let data = await User.find({type})
